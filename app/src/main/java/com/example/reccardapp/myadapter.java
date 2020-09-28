@@ -2,19 +2,16 @@ package com.example.reccardapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.Normalizer2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class myadapter extends RecyclerView.Adapter<myviewholder> implements Filterable
  {
@@ -35,7 +32,7 @@ public class myadapter extends RecyclerView.Adapter<myviewholder> implements Fil
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view=inflater.inflate(R.layout.singlerow,parent,false);
+        View view=inflater.inflate(R.layout.teamssinglerow,parent,false);
         return new myviewholder(view);
     }
 
@@ -54,7 +51,7 @@ public class myadapter extends RecyclerView.Adapter<myviewholder> implements Fil
            @Override
            public void onClick(View v) {
 
-                 Intent intent=new Intent(context,Main2Activity.class);
+                 Intent intent=new Intent(context, TeamsDetailedActivity.class);
                  intent.putExtra("imagename",temp.getImg_Name());
                  intent.putExtra("teamName",temp.getTeam_Name());
                  intent.putExtra("shortName",temp.getShort_Name());

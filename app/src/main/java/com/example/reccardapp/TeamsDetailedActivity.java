@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Main2Activity extends AppCompatActivity
+public class TeamsDetailedActivity extends AppCompatActivity
 {
    ImageView detail_Img;
    TextView detail_team_Name,detail_short_Name, detail_team_Description, detail_team_Members;
@@ -14,7 +14,7 @@ public class Main2Activity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.teams_activity_main_detail);
 
         detail_Img=(ImageView)findViewById(R.id.detail_img);
         detail_team_Name=(TextView)findViewById(R.id.detail_team_name);
