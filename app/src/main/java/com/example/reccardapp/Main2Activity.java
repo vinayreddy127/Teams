@@ -8,24 +8,24 @@ import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity
 {
-   ImageView detailImg;
-   TextView detail_team_name,detail_short_name, detail_team_description, detail_team_members;
+   ImageView detail_Img;
+   TextView detail_team_Name,detail_short_Name, detail_team_Description, detail_team_Members;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        detailImg=(ImageView)findViewById(R.id.detail_img);
-        detail_team_name=(TextView)findViewById(R.id.detail_team_name);
-        detail_short_name=(TextView)findViewById(R.id.detail_short_name);
-        detail_team_description=(TextView)findViewById(R.id.detail_team_description);
-        detail_team_members=(TextView)findViewById(R.id.detail_team_members);
+        detail_Img=(ImageView)findViewById(R.id.detail_img);
+        detail_team_Name=(TextView)findViewById(R.id.detail_team_name);
+        detail_short_Name=(TextView)findViewById(R.id.detail_short_name);
+        detail_team_Description=(TextView)findViewById(R.id.detail_team_description);
+        detail_team_Members=(TextView)findViewById(R.id.detail_team_members);
 
-        detailImg.setImageResource(getIntent().getIntExtra("imagename",0));
-        detail_team_name.setText(getIntent().getStringExtra("teamName"));
-        detail_short_name.setText(getIntent().getStringExtra("ShortName"));
-        detail_team_description.setText(getIntent().getStringExtra("TeamDescription"));
-        detail_team_members.setText(getIntent().getStringExtra("teamMembers"));
+        detail_Img.setImageResource(getIntent().getIntExtra("imagename",0));
+        detail_team_Name.setText(getIntent().getStringExtra("teamName"));
+        detail_short_Name.setText(getIntent().getStringExtra("shortName"));
+        detail_team_Description.setText(getIntent().getStringExtra("teamDescription"));
+        detail_team_Members.setText(getIntent().getStringExtra("teamMembers"));
     }
 }

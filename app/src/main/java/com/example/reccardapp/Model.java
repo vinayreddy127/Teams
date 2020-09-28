@@ -3,8 +3,8 @@ package com.example.reccardapp;
 public class Model
 {
     private String teamName;
-    private String short_name;
-    private int imgname;
+    private String shortName;
+    private int imgName;
     private String teamDescription;
     private String teamMembers;
 
@@ -19,12 +19,12 @@ public class Model
         this.teamName = teamName;
     }
 
-    public String getShort_name() {
-        return short_name;
+    public String getShort_Name() {
+        return shortName;
     }
 
-    public void setShort_name(String short_name) {
-        this.short_name = short_name;
+    public void setShort_Name(String shortName) {
+        this.shortName = shortName;
     }
 
     public String getTeam_Description() {
@@ -41,12 +41,12 @@ public class Model
         this.teamMembers = teamMembers;
     }
 
-    public int getImgname() {
-        return imgname;
+    public int getImg_Name() {
+        return imgName;
     }
 
-    public void setImgname(int imgname) {
-        this.imgname = imgname;
+    public void setImg_Name(int imgName) {
+        this.imgName = imgName;
     }
 
 

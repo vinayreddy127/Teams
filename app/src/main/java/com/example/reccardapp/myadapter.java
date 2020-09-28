@@ -44,9 +44,9 @@ public class myadapter extends RecyclerView.Adapter<myviewholder> implements Fil
     {
        final Model temp=data.get(position);
 
-        holder.img.setImageResource(data.get(position).getImgname());
+        holder.img.setImageResource(data.get(position).getImg_Name());
         holder.name.setText(data.get(position).getTeam_Name());
-        holder.shortname.setText(data.get(position).getShort_name());
+        holder.shortname.setText(data.get(position).getShort_Name());
         holder.desc.setText(data.get(position).getTeam_Description());
         holder.teamMembers.setText(data.get(position).getTeam_Members());
 
@@ -55,10 +55,10 @@ public class myadapter extends RecyclerView.Adapter<myviewholder> implements Fil
            public void onClick(View v) {
 
                  Intent intent=new Intent(context,Main2Activity.class);
-                 intent.putExtra("imagename",temp.getImgname());
+                 intent.putExtra("imagename",temp.getImg_Name());
                  intent.putExtra("teamName",temp.getTeam_Name());
-                 intent.putExtra("shortName",temp.getShort_name());
-                 intent.putExtra("teamDesc",temp.getTeam_Description());
+                 intent.putExtra("shortName",temp.getShort_Name());
+                 intent.putExtra("teamDescription",temp.getTeam_Description());
                  intent.putExtra("teamMembers",temp.getTeam_Members());
                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  context.startActivity(intent);
