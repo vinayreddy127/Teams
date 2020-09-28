@@ -1,110 +1,73 @@
-package com.example.reccardapp;
+package com.example.reccardapp
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
+import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import kotlin.collections.ArrayList
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-
-public class myadapter extends RecyclerView.Adapter<myviewholder> implements Filterable
- {
-   ArrayList<Model> data;
-   ArrayList<Model> backup;
-   Context context;
-
-    public myadapter(ArrayList<Model> data, Context context)
-
-    {
-        this.data = data;
-        this.context=context;
-        backup=new ArrayList<>(data);
+class myadapter(var data: ArrayList<Model>, var context: Context) : RecyclerView.Adapter<myviewholder>(), Filterable {
+    var backup: ArrayList<Model> = ArrayList()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myviewholder {
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.teamssinglerow, parent, false)
+        return myviewholder(view)
     }
 
-    @NonNull
-    @Override
-    public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view=inflater.inflate(R.layout.teamssinglerow,parent,false);
-        return new myviewholder(view);
+    override fun onBindViewHolder(holder: myviewholder, position: Int) {
+        val temp = data[position]
+        holder.img.setImageResource(data[position].img_Name)
+        holder.name.text = data[position].team_Name
+        holder.shortname.text = data[position].short_Name
+        holder.desc.text = data[position].team_Description
+        holder.teamMembers.text = data[position].team_Members
+        holder.img.setOnClickListener {
+            val intent = Intent(context, TeamsDetailedActivity::class.java)
+            intent.putExtra("imagename", temp.img_Name)
+            intent.putExtra("teamName", temp.team_Name)
+            intent.putExtra("shortName", temp.short_Name)
+            intent.putExtra("teamDescription", temp.team_Description)
+            intent.putExtra("teamMembers", temp.team_Members)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull final myviewholder holder, int position)
-    {
-       final Model temp=data.get(position);
-
-        holder.img.setImageResource(data.get(position).getImg_Name());
-        holder.name.setText(data.get(position).getTeam_Name());
-        holder.shortname.setText(data.get(position).getShort_Name());
-        holder.desc.setText(data.get(position).getTeam_Description());
-        holder.teamMembers.setText(data.get(position).getTeam_Members());
-
-       holder.img.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-                 Intent intent=new Intent(context, TeamsDetailedActivity.class);
-                 intent.putExtra("imagename",temp.getImg_Name());
-                 intent.putExtra("teamName",temp.getTeam_Name());
-                 intent.putExtra("shortName",temp.getShort_Name());
-                 intent.putExtra("teamDescription",temp.getTeam_Description());
-                 intent.putExtra("teamMembers",temp.getTeam_Members());
-                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                 context.startActivity(intent);
-           }
-       });
-
+    override fun getItemCount(): Int {
+        return data.size
     }
 
-    @Override
-    public int getItemCount()
-    {
-        return data.size();
+    override fun getFilter(): Filter {
+        return filter
     }
 
-
-     @Override
-     public Filter getFilter() {
-         return filter;
-     }
-
-      Filter filter=new Filter() {
-          @Override
-          // background thread
-          protected FilterResults performFiltering(CharSequence keyword)
-          {
-              ArrayList<Model> filtereddata=new ArrayList<>();
-
-                if(keyword.toString().isEmpty())
-                    filtereddata.addAll(backup);
-                else
-                {
-                   for(Model obj : backup)
-                   {
-                      if(obj.getTeam_Name().toString().toLowerCase().contains(keyword.toString().toLowerCase()))
-                          filtereddata.add(obj);
-                   }
+    private var filter: Filter = object : Filter() {
+        // background thread
+        override fun performFiltering(keyword: CharSequence): FilterResults {
+            val filtereddata = ArrayList<Model>()
+            if (keyword.toString().isEmpty()) filtereddata.addAll(backup) else {
+                for (obj in backup) {
+                    if (obj.team_Name.toString().toLowerCase().contains(keyword.toString().toLowerCase())) filtereddata.add(obj)
                 }
+            }
+            val results = FilterResults()
+            results.values = filtereddata
+            return results
+        }
 
-                FilterResults results=new FilterResults();
-                results.values=filtereddata;
-                return results;
-          }
+        // main UI thread
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            data.clear()
+            data.addAll((results.values as ArrayList<Model>))
+            notifyDataSetChanged()
+        }
+    }
 
-          @Override  // main UI thread
-          protected void publishResults(CharSequence constraint, FilterResults results)
-          {
-             data.clear();
-             data.addAll((ArrayList<Model>)results.values);
-             notifyDataSetChanged();
-          }
-      };
- }
+    init {
+        backup = ArrayList(data)
+    }
+}
